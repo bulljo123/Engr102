@@ -21,7 +21,7 @@ def main():
     # You'll see the secret password in the Run and Debug section of the left side.
 
     # TODO: Copy and paste the secret password next to Answer
-    # Answer: 
+    # Answer: 'HEY YOU FOUND THE CODE'
 
     # Remember you can move forward through code, but you can't move backwards
     # So, make sure your clicks are deliberate!!!
@@ -44,7 +44,7 @@ def main():
     # This code will run based on the current break point in the code.
     # If you typed it correctly, you should get the decrypted message!
     # TODO: Copy and paste the decrypted message
-    # Answer: 
+    # Answer: 'ELDEN RING DLC WHEN'
 
     # Stop the code and let's continue...
 
