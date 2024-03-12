@@ -25,13 +25,14 @@ def main():
     # The soup object allows us to search for specific elements in the html response
     soup = bs(r.content, "html.parser")
 
-    quotes = []
-    
+    quotes = []  
+    quote_tags = {}
+    quote_authors ={}
     # iterate through each page of quotes
     while True:
         # If you followed in class, this logic was at the bottom
         # This should have been at the top, because our logic did not actually add the first page
-        quotes.extend(scrape_quotes(soup))
+        quotes.extend(scrape_quotes(soup,quote_tags,quote_authors))
 
         # use a sleep delay to ensure you are not hitting the url too quickly
         # hitting a url too quickly risks being flagged as a DDoS attack
@@ -53,7 +54,11 @@ def main():
         # The loop restarts
         r = requests.get(next_page)
         soup = bs(r.content, "html.parser")
-        
+    sorted_occurences = sorted(quote_tags.items(), key=lambda x: x[1], reverse=True)
+    print(sorted_occurences)
+    author_occurances = sorted(quote_authors.items(), key=lambda x: x[1], reverse=True)
+    print(author_occurances)
+    
 
     # After we have all of the quotes, we can figure out the longest and shortest
     get_shortest_and_longest(quotes)
@@ -81,8 +86,8 @@ def get_shortest_and_longest(quotes):
         if len(quote.text) < shortest:
             shortest = len(quote.text)
             shortest_quote = quote.text
-    print(longest_quote, longest)
-    print(shortest_quote, shortest)
+    print("longest quote",longest_quote, longest)
+    print("shortest quote",shortest_quote, shortest)
     return 
 
 
@@ -101,7 +106,7 @@ def get_next_url(soup: bs):
     return url
 
 
-def scrape_quotes(soup: bs):
+def scrape_quotes(soup: bs,quote_tags,quote_authors):
     '''
         Gets all of the quotes from the soup object
         Returns a list of quotes as Quote objects
@@ -110,21 +115,35 @@ def scrape_quotes(soup: bs):
     quotes = soup.find_all("div", {"class": "quote"})
 
     quotes_list = []
+   
+    
 
     for quote in quotes:
         text = quote.find("span", {"class": "text"}).get_text(strip=True)
         print(text)
         author = quote.find("small", {"class": "author"}).get_text(strip=True)
         print(author)
-        
+       
+        if author in quote_authors:
+            quote_authors[author] +=1
+        else:
+            quote_authors[author] = 1
+
         tags = quote.find_all("a", {"class": "tag"})
         tags_text = []
         for tag in tags:
             tags_text.append(tag.get_text(strip=True))
+            tag_name = tag.get_text(strip=True)
+            if tag_name in quote_tags:
+                quote_tags[tag_name] +=1
+            else:
+                quote_tags[tag_name] = 1
         print(tags_text)
+    
+        
 
         quotes_list.append(Quote(text, author, tags_text))
-
+    
 
     return quotes_list
 
