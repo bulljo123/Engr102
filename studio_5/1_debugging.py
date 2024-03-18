@@ -34,7 +34,7 @@ def main():
 
     secret_code = 'LSKLU YPUN KSJ DOLU'
     shift_code = 7
-
+     #secret_code = 'HEY YOU FOUND THE CODE'
     # Put a break point below on line 35. This is after the secret code and the shift code are generated.
     print("Break Point here!")
 
@@ -57,7 +57,7 @@ def main():
     # This will start at the beginning of the function, and you can continue stepping over
     # There is an answer in the text in the function
     # TODO: Copy and paste the answer from step_into_me()
-    # Answer: 
+    # Answer:"Hey, you stepped into the function." 
 
     # Stop the debugger and continue reading.
 
@@ -78,7 +78,7 @@ def main():
     # Try typing 7, and then stepping over. Looks like it's not a liar after all!
     # But wait, look carefully, there is also a global variable (Globals) called "final_answer"
     # TODO: Type the value of final_answer
-    # Answer: 
+    # Answer: 'YOU ARE DONE!'
 
     
     # Now you're done! Move on to the errors.py studio.
